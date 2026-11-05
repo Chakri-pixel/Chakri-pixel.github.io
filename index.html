@@ -1,308 +1,435 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <meta name="color-scheme" content="light dark" />
-  <meta name="theme-color" content="#f4f7f6" />
-  <meta name="description" content="Chakri Nallandula is a Platform Engineer in New York, NY, running production Kubernetes platforms with Helm, Argo CD GitOps, and full-stack observability." />
-  <link rel="icon" href="data:," />
-  <title>Chakri Nallandula — Platform Engineer</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-  <style>
-    :root{
-      color-scheme:light dark;
-      --bg:#f4f7f6; --surface:#ffffff; --surface-2:#e9efed; --ink:#0b1719; --muted:#4f6164;
-      --line:#cbd7d4; --aqua:#007f7a; --label:#006965; --aqua-2:#00a79f; --orange:#e2501e; --yellow:#efb300;
-      --nav:rgba(244,247,246,.82); --shadow:0 18px 50px rgba(11,23,25,.10);
-      --grid:rgba(11,23,25,.065); --radius:20px;
-    }
-    @media (prefers-color-scheme:dark){
-      :root{
-        --bg:#071013; --surface:#0d191c; --surface-2:#132326; --ink:#effaf8; --muted:#9bb0ad;
-        --line:#294044; --aqua:#4be0d2; --label:#63e8dc; --aqua-2:#20b8b0; --orange:#ff7040; --yellow:#ffd258;
-        --nav:rgba(7,16,19,.80); --shadow:0 22px 60px rgba(0,0,0,.28); --grid:rgba(239,250,248,.06);
-      }
-    }
-    :root[data-theme="light"]{
-      color-scheme:light;--bg:#f4f7f6;--surface:#ffffff;--surface-2:#e9efed;--ink:#0b1719;--muted:#4f6164;
-      --line:#cbd7d4;--aqua:#007f7a;--label:#006965;--aqua-2:#00a79f;--orange:#e2501e;--yellow:#efb300;
-      --nav:rgba(244,247,246,.94);--shadow:0 18px 50px rgba(11,23,25,.10);--grid:rgba(11,23,25,.065);
-    }
-    :root[data-theme="dark"]{
-      color-scheme:dark;--bg:#071013;--surface:#0d191c;--surface-2:#132326;--ink:#effaf8;--muted:#9bb0ad;
-      --line:#294044;--aqua:#4be0d2;--label:#63e8dc;--aqua-2:#20b8b0;--orange:#ff7040;--yellow:#ffd258;
-      --nav:rgba(7,16,19,.92);--shadow:0 22px 60px rgba(0,0,0,.28);--grid:rgba(239,250,248,.06);
-    }
-    *{box-sizing:border-box}
-    html{scroll-behavior:smooth;scroll-padding-top:88px}
-    section[id],main[id]{scroll-margin-top:88px}
-    body{margin:0;background:var(--bg);color:var(--ink);font-family:Figtree,system-ui,sans-serif;line-height:1.55;overflow-x:hidden}
-    body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:-2;background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:72px 72px;mask-image:linear-gradient(to bottom,black,transparent 78%)}
-    a{color:inherit;text-decoration:none}
-    button{font:inherit}
-    .skip{position:fixed;left:12px;top:12px;z-index:99;background:var(--ink);color:var(--bg);padding:10px 14px;transform:translateY(-180%);border-radius:8px}.skip:focus{transform:none}
-    .wrap{width:min(1180px,calc(100% - 40px));margin-inline:auto}
-    nav{position:sticky;top:0;z-index:30;border-bottom:1px solid transparent;background:var(--nav);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);transition:border-color .25s}
-    nav.scrolled{border-color:var(--line)}
-    .nav-inner{height:70px;display:flex;align-items:center;justify-content:space-between;gap:24px}
-    .status{display:flex;align-items:center;gap:10px;font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--muted)}
-    .status i{width:9px;height:9px;background:var(--aqua);border-radius:50%;box-shadow:0 0 0 5px color-mix(in srgb,var(--aqua),transparent 82%);animation:pulse 2.2s ease-in-out infinite}
-    .nav-links{display:flex;align-items:center;gap:24px;font-size:14px;font-weight:600}
-    .nav-links a:not(.mini-cta){color:var(--muted);transition:color .2s}.nav-links a:hover{color:var(--ink)}
-    .theme-toggle{width:40px;height:40px;display:grid;place-items:center;border:1px solid var(--line);border-radius:50%;background:var(--surface);color:var(--ink);cursor:pointer;transition:border-color .2s,background .2s}
-    .theme-toggle:hover{border-color:var(--aqua);background:var(--surface-2)}.theme-toggle svg{width:18px;height:18px}.theme-toggle [hidden]{display:none}
-    .mini-cta,.button{display:inline-flex;align-items:center;justify-content:center;gap:9px;border:1px solid var(--ink);background:var(--ink);color:var(--bg);padding:11px 16px;border-radius:999px;font-weight:700;transition:transform .2s,box-shadow .2s}
-    .mini-cta:hover,.button:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(11,23,25,.18)}
-    .button.secondary{background:transparent;color:var(--ink);border-color:var(--line)}
-    .hero{min-height:calc(100svh - 70px);display:grid;grid-template-columns:1.06fr .94fr;align-items:center;gap:54px;padding:72px 0 62px}
-    .availability{display:inline-flex;align-items:center;gap:10px;padding:7px 11px 7px 8px;border:1px solid var(--line);border-radius:999px;background:var(--surface);font:500 11px/1 "IBM Plex Mono",monospace;color:var(--muted)}
-    .availability b{background:var(--aqua);color:#041112;border-radius:999px;padding:5px 8px;letter-spacing:.02em}
-    h1{font-size:clamp(50px,7.2vw,96px);line-height:.94;letter-spacing:-.065em;margin:28px 0 28px;max-width:820px}
-    h1 span{display:block;color:var(--aqua)}
-    .lead{font-size:clamp(18px,2vw,23px);line-height:1.45;color:var(--muted);max-width:670px;margin:0}
-    .lead strong{color:var(--ink);font-weight:600}
-    .hero-actions{display:flex;gap:12px;align-items:center;margin-top:34px;flex-wrap:wrap}
-    .button svg,.mini-cta svg{width:17px;height:17px}
-    .micro-row{margin-top:30px;display:flex;gap:22px;flex-wrap:wrap;color:var(--muted);font:500 12px/1.4 "IBM Plex Mono",monospace}
-    .micro-row span{display:flex;align-items:center;gap:8px}.micro-row span::before{content:"";width:14px;height:1px;background:var(--aqua)}
-    .system-window{position:relative;aspect-ratio:1/1;max-width:560px;width:100%;justify-self:end;border:1px solid var(--line);background:color-mix(in srgb,var(--surface),transparent 7%);box-shadow:var(--shadow);overflow:hidden;border-radius:28px}
-    .system-window::after{content:"";position:absolute;inset:0;background:linear-gradient(115deg,transparent 42%,color-mix(in srgb,var(--aqua),transparent 94%) 43%,transparent 44%);pointer-events:none}
-    .window-bar{height:52px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 18px;font:500 11px/1 "IBM Plex Mono",monospace;color:var(--muted)}
-    .lights{display:flex;gap:6px}.lights i{display:block;width:7px;height:7px;border-radius:50%;background:var(--line)}.lights i:first-child{background:var(--orange)}.lights i:nth-child(2){background:var(--yellow)}.lights i:last-child{background:var(--aqua)}
-    .canvas-wrap{position:absolute;inset:52px 0 0}#network{position:absolute;inset:0;width:100%;height:100%}
-    .system-label{position:absolute;z-index:2;padding:7px 10px;border:1px solid var(--line);border-radius:9px;background:var(--surface);box-shadow:0 6px 20px rgba(0,0,0,.08);font:600 10px/1 "IBM Plex Mono",monospace;letter-spacing:.03em}
-    .system-label:nth-of-type(1){left:8%;top:20%}.system-label:nth-of-type(2){right:7%;top:14%}.system-label:nth-of-type(3){right:10%;bottom:17%}.system-label:nth-of-type(4){left:7%;bottom:13%}
-    .core{position:absolute;inset:50%;z-index:3;width:156px;height:156px;transform:translate(-50%,-50%);border:1px solid var(--aqua);border-radius:50%;display:grid;place-items:center;background:color-mix(in srgb,var(--surface),transparent 5%);box-shadow:0 0 0 18px color-mix(in srgb,var(--aqua),transparent 92%),0 0 0 42px color-mix(in srgb,var(--aqua),transparent 96%)}
-    .core::before{content:"";position:absolute;inset:15px;border:1px dashed var(--aqua);border-radius:50%;animation:spin 18s linear infinite}
-    .core strong{font-size:50px;line-height:1;letter-spacing:-.06em}.core small{display:block;text-align:center;font:500 10px/1.4 "IBM Plex Mono",monospace;color:var(--muted)}
-    .metrics{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
-    .metric{padding:34px 28px;border-right:1px solid var(--line)}.metric:first-child{padding-left:0}.metric:last-child{border:0}
-    .metric strong{display:block;font-size:clamp(32px,4vw,52px);letter-spacing:-.05em;line-height:1;color:var(--ink)}
-    .metric span{display:block;margin-top:10px;color:var(--muted);font-size:13px;max-width:170px}
-    section{padding:118px 0}
-    .section-head{display:grid;grid-template-columns:180px 1fr;gap:35px;margin-bottom:54px;align-items:start}
-    .section-index{font:700 11px/1 "IBM Plex Mono",monospace;color:var(--label);display:flex;gap:9px;align-items:center}.section-index::before{content:"";width:28px;height:1px;background:currentColor}
-    h2{font-size:clamp(38px,5vw,70px);line-height:1.02;letter-spacing:-.055em;margin:0;max-width:850px}
-    .impact-grid{display:grid;grid-template-columns:1.22fr .78fr;gap:16px}
-    .case{background:var(--surface);border:1px solid var(--line);padding:30px;min-height:315px;position:relative;overflow:hidden;border-radius:var(--radius)}
-    .case.large{grid-row:span 2;min-height:646px;display:flex;flex-direction:column;justify-content:space-between;background:var(--ink);color:var(--bg)}
-    .case-num{font:500 11px/1 "IBM Plex Mono",monospace;color:var(--muted)}.large .case-num{color:color-mix(in srgb,var(--bg),transparent 45%)}
-    .case h3{font-size:clamp(25px,3vw,43px);line-height:1.03;letter-spacing:-.045em;margin:28px 0 14px;max-width:580px}
-    .case p{margin:0;color:var(--muted);font-size:16px;max-width:560px}.large p{color:color-mix(in srgb,var(--bg),transparent 25%);font-size:18px}
-    .case-tag{display:inline-flex;margin-top:24px;font:500 11px/1 "IBM Plex Mono",monospace;color:var(--aqua);border:1px solid currentColor;border-radius:999px;padding:8px 10px;width:max-content}
-    .large .case-tag{color:var(--aqua)}
-    .flow-art{height:240px;margin:42px -30px -30px;position:relative;overflow:hidden;border-top:1px solid color-mix(in srgb,var(--bg),transparent 80%);background:radial-gradient(circle at center,color-mix(in srgb,var(--aqua),transparent 78%),transparent 55%)}
-    .lane{position:absolute;height:1px;background:color-mix(in srgb,var(--aqua),transparent 45%);left:8%;right:8%}.lane:nth-child(1){top:28%;transform:rotate(8deg)}.lane:nth-child(2){top:50%;transform:rotate(-5deg)}.lane:nth-child(3){top:72%;transform:rotate(3deg)}
-    .packet{width:8px;height:8px;border-radius:50%;position:absolute;top:-4px;background:var(--aqua);box-shadow:0 0 16px var(--aqua);animation:travel 3.6s linear infinite}.lane:nth-child(2) .packet{animation-delay:-1.2s;background:var(--yellow)}.lane:nth-child(3) .packet{animation-delay:-2.4s;background:var(--orange)}
-    .case-stat{display:flex;align-items:baseline;flex-wrap:wrap;gap:8px;font-size:44px;font-weight:800;letter-spacing:-.05em;margin-top:28px}.case-stat span{font-size:14px;font-weight:600;color:var(--muted);letter-spacing:0;margin-left:0}
-    .journey{border-top:1px solid var(--line)}
-    .timeline{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--line)}
-    .role{padding:34px 26px 40px;border-right:1px solid var(--line);position:relative}.role:first-child{padding-left:0}.role:last-child{border-right:0}
-    .role .date{font:600 11px/1.4 "IBM Plex Mono",monospace;color:var(--label)}
-    .role h3{font-size:27px;line-height:1.1;letter-spacing:-.03em;margin:20px 0 5px}.role .company{font-weight:700}.role .place{color:var(--muted);font-size:13px;margin-top:3px}
-    .role ul{padding:0;margin:26px 0 0;list-style:none}.role li{padding:12px 0 12px 18px;border-top:1px solid var(--line);color:var(--muted);font-size:14px;position:relative}.role li::before{content:"";position:absolute;left:0;top:20px;width:5px;height:5px;background:var(--aqua);border-radius:50%}
-    .stack-layout{display:grid;grid-template-columns:300px 1fr;gap:48px;align-items:start}
-    .stack-intro{position:sticky;top:104px}.stack-intro p{color:var(--muted);font-size:16px;margin:20px 0 28px}
-    .stack-tabs{display:flex;flex-direction:column;gap:7px}
-    .stack-tab{display:flex;justify-content:space-between;width:100%;border:0;border-bottom:1px solid var(--line);background:transparent;color:var(--muted);padding:13px 0;cursor:pointer;text-align:left;font-weight:600}.stack-tab.active{color:var(--ink)}.stack-tab b{font:500 11px/1 "IBM Plex Mono",monospace;color:var(--aqua)}
-    .skills-stage{min-height:520px;border:1px solid var(--line);border-radius:var(--radius);background:var(--surface);padding:32px;position:relative;overflow:hidden}
-    .skills-stage::before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,var(--grid) 1px,transparent 1px),linear-gradient(var(--grid) 1px,transparent 1px);background-size:32px 32px;mask-image:linear-gradient(to bottom right,black,transparent 80%)}
-    .skill-panel{display:none;position:relative;z-index:1}.skill-panel.active{display:block;animation:panelIn .35s ease both}
-    .skill-panel h3{font-size:38px;letter-spacing:-.04em;margin:0 0 10px}.skill-panel>p{color:var(--muted);max-width:590px;margin:0 0 35px}
-    .skill-cloud{display:flex;flex-wrap:wrap;gap:10px}.skill{padding:12px 15px;border:1px solid var(--line);background:var(--bg);border-radius:10px;font:500 13px/1 "IBM Plex Mono",monospace}.skill.primary{background:var(--ink);color:var(--bg);border-color:var(--ink)}
-    .process{padding-top:0}.process-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;background:var(--surface)}
-    .process-step{padding:30px 24px;border-right:1px solid var(--line);min-height:265px}.process-step:last-child{border-right:0}.process-step .icon{width:44px;height:44px;border:1px solid var(--line);display:grid;place-items:center;border-radius:50%;color:var(--aqua)}.process-step .icon svg{width:20px;height:20px}.process-step h3{font-size:21px;margin:34px 0 10px}.process-step p{font-size:14px;color:var(--muted);margin:0}
-    .credentials{border-top:1px solid var(--line)}
-    .credentials-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-    .education,.certs{border:1px solid var(--line);border-radius:var(--radius);background:var(--surface);padding:30px}
-    .credentials h3{font-size:27px;letter-spacing:-.03em;margin:0 0 26px}
-    .edu-item,.cert{padding:18px 0;border-top:1px solid var(--line)}.edu-item strong,.cert strong{display:block}.edu-item span,.cert span{display:block;color:var(--muted);font-size:13px;margin-top:4px}.cert:first-of-type strong{color:var(--aqua)}
-    .contact{padding-bottom:80px}.contact-shell{background:var(--ink);color:var(--bg);border-radius:28px;padding:clamp(34px,6vw,78px);position:relative;overflow:hidden}.contact-shell::after{content:"";position:absolute;width:360px;height:360px;border:1px solid color-mix(in srgb,var(--aqua),transparent 45%);border-radius:50%;right:-130px;top:-160px;box-shadow:0 0 0 60px color-mix(in srgb,var(--aqua),transparent 91%),0 0 0 120px color-mix(in srgb,var(--aqua),transparent 95%)}
-    .contact .section-index{color:var(--aqua)}.contact h2{max-width:830px;position:relative;z-index:1}.contact p{max-width:650px;color:color-mix(in srgb,var(--bg),transparent 30%);font-size:18px;position:relative;z-index:1}.contact-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:34px;position:relative;z-index:2}.contact .button{background:var(--bg);color:var(--ink);border-color:var(--bg)}.contact .button.secondary{background:transparent;color:var(--bg);border-color:color-mix(in srgb,var(--bg),transparent 64%)}
-    footer{display:flex;justify-content:space-between;align-items:flex-end;gap:30px;padding:26px 0 38px;color:var(--muted);font-size:13px;border-top:1px solid var(--line)}footer strong{display:block;color:var(--ink);font-size:16px;margin-bottom:5px}footer .mono{font-family:"IBM Plex Mono",monospace;font-size:11px;text-align:right}footer a{text-decoration:underline;text-underline-offset:3px}
-    .toast{position:fixed;left:50%;bottom:max(24px,env(safe-area-inset-bottom));z-index:100;transform:translate(-50%,12px);visibility:hidden;opacity:0;pointer-events:none;background:var(--ink);color:var(--bg);padding:12px 16px;border:1px solid var(--line);border-radius:999px;font-size:13px;box-shadow:var(--shadow);transition:opacity .2s,transform .2s,visibility 0s linear .2s}.toast.show{transform:translate(-50%,0);visibility:visible;opacity:1;transition-delay:0s}
-    .reveal{opacity:1;transform:none}
-    @keyframes pulse{50%{box-shadow:0 0 0 10px color-mix(in srgb,var(--aqua),transparent 100%)}}
-    @keyframes spin{to{transform:rotate(360deg)}}
-    @keyframes travel{from{left:0}to{left:100%}}
-    @keyframes panelIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
-    @media (max-width:900px){
-      .nav-links a:not(.mini-cta){display:none}.hero{grid-template-columns:1fr;gap:44px;padding-top:54px}.system-window{justify-self:center;max-width:560px}.metrics{grid-template-columns:1fr 1fr}.metric:nth-child(2){border-right:0}.metric:nth-child(-n+2){border-bottom:1px solid var(--line)}.metric:nth-child(3){padding-left:0}.section-head{grid-template-columns:1fr;gap:18px}.impact-grid{grid-template-columns:1fr}.case.large{grid-row:auto;min-height:560px}.timeline{grid-template-columns:1fr}.role,.role:first-child{border-right:0;border-bottom:1px solid var(--line);padding:30px 0}.role:last-child{border-bottom:0}.stack-layout{grid-template-columns:1fr}.stack-intro{position:static}.stack-tabs{display:grid;grid-template-columns:1fr 1fr}.process-grid{grid-template-columns:1fr 1fr}.process-step:nth-child(2){border-right:0}.process-step:nth-child(-n+2){border-bottom:1px solid var(--line)}.credentials-grid{grid-template-columns:1fr}}
-    @media (max-width:560px){
-      .wrap{width:min(100% - 28px,1180px)}.nav-inner{height:62px}.status span{display:none}.nav-links{gap:8px}.theme-toggle{width:38px;height:38px}.mini-cta{padding:9px 12px;font-size:13px}.hero{min-height:auto;padding:46px 0 54px}.availability{font-size:9px}h1{font-size:clamp(43px,13vw,51px)}.lead{font-size:17px}.hero-actions{align-items:stretch}.hero-actions .button{flex:1;min-width:145px}.micro-row{gap:12px}.system-window{border-radius:20px}.core{width:118px;height:118px}.core strong{font-size:39px}.system-label{font-size:8px}.metrics{grid-template-columns:1fr}.metric,.metric:first-child,.metric:nth-child(3){padding:24px 0;border-right:0;border-bottom:1px solid var(--line)}.metric:last-child{border-bottom:0}.metric span{max-width:none}section{padding:82px 0}h2{font-size:41px}.case{padding:22px;min-height:280px}.case.large{min-height:520px}.flow-art{margin:34px -22px -22px}.stack-tabs{display:grid;grid-template-columns:1fr 1fr;overflow:visible;padding-bottom:4px}.stack-tab{min-width:0;width:100%;gap:10px;padding:12px 4px}.skills-stage{padding:22px;min-height:520px}.skill-panel h3{font-size:31px}.skill{font-size:11px;padding:10px 12px}.process-grid{grid-template-columns:1fr}.process-step{border-right:0;border-bottom:1px solid var(--line);min-height:auto}.process-step:last-child{border-bottom:0}.credentials-grid{gap:12px}.education,.certs{padding:22px}.contact-shell{border-radius:20px}.contact-actions{flex-direction:column}.contact-actions .button{width:100%}footer{align-items:flex-start;flex-direction:column}.mono{text-align:left!important}}
-    @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}.reveal{opacity:1;transform:none}}
-  </style>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="color-scheme" content="dark" />
+<meta name="theme-color" content="#0a0e0c" />
+<meta name="description" content="Chakri Nallandula — Platform Engineer in New York, NY. Production Kubernetes on AKS, EKS, and Rancher, GitOps with Helm and Argo CD, and full-stack observability." />
+<title>Chakri Nallandula — Platform Engineer</title>
+<style>
+  :root{
+    --bg:#0a0e0c; --bg2:#0d1310; --card:#111a15; --card2:#152019;
+    --line:#223129; --line2:#2c3f33;
+    --ink:#eaf2ed; --muted:#9db4a7; --faint:#6f857a;
+    --teal:#2dd4bf; --green:#34d399; --amber:#fbbf24;
+    --radius:18px;
+    --mono:ui-monospace,"SF Mono","JetBrains Mono",Menlo,Consolas,monospace;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,Helvetica,Arial,sans-serif;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);line-height:1.6;-webkit-font-smoothing:antialiased}
+  a{color:inherit}
+  ::selection{background:var(--teal);color:#06251f}
+  .wrap{width:min(1080px,calc(100% - 40px));margin-inline:auto}
+  section{scroll-margin-top:84px}
+
+  /* ---------- nav ---------- */
+  nav{position:sticky;top:0;z-index:40;background:rgba(10,14,12,.86);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+  .nav-inner{height:64px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+  .brand{font-family:var(--mono);font-weight:700;font-size:15px;letter-spacing:.02em;text-decoration:none}
+  .brand b{color:var(--teal)}
+  .nav-links{display:flex;align-items:center;gap:4px}
+  .nav-links a{padding:8px 12px;border-radius:999px;text-decoration:none;color:var(--muted);font-size:14px;font-weight:600}
+  .nav-links a:hover{color:var(--ink);background:#16241c}
+  .nav-cta{padding:9px 16px;border-radius:999px;background:var(--teal);color:#06251f;text-decoration:none;font-weight:700;font-size:14px}
+  .nav-cta:hover{background:#5eead4}
+  .menu-btn{display:none;background:none;border:1px solid var(--line2);color:var(--ink);border-radius:10px;padding:8px 12px;font:inherit;cursor:pointer}
+
+  /* ---------- hero ---------- */
+  .hero{position:relative;padding:96px 0 72px;overflow:hidden}
+  .hero::before{content:"";position:absolute;inset:-40px 0 auto;height:560px;pointer-events:none;
+    background:radial-gradient(560px 320px at 78% 8%,rgba(45,212,191,.16),transparent 65%),
+               radial-gradient(480px 300px at 12% 22%,rgba(52,211,153,.10),transparent 65%)}
+  .hero .wrap{position:relative}
+  .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--teal);display:flex;align-items:center;gap:10px}
+  .eyebrow::before{content:"";width:28px;height:1px;background:var(--teal)}
+  .eyebrow .dot{width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 0 4px rgba(52,211,153,.18);display:inline-block}
+  h1{font-size:clamp(44px,7.2vw,84px);line-height:1.02;letter-spacing:-.03em;margin:22px 0 0;font-weight:800}
+  h1 .grad{background:linear-gradient(92deg,var(--teal),var(--green) 55%,#a7f3d0);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .hero-sub{font-size:clamp(19px,2.6vw,26px);line-height:1.4;color:var(--muted);max-width:640px;margin:22px 0 0;font-weight:500}
+  .hero-sub strong{color:var(--ink);font-weight:700}
+  .chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px}
+  .chip{font-family:var(--mono);font-size:13px;padding:8px 14px;border:1px solid var(--line2);border-radius:999px;background:rgba(18,26,21,.7);color:#c8d8cd}
+  .chip b{color:var(--teal);font-weight:700}
+  .cta-row{display:flex;flex-wrap:wrap;gap:12px;margin-top:34px}
+  .btn{display:inline-block;padding:14px 24px;border-radius:999px;text-decoration:none;font-weight:700;font-size:15px}
+  .btn-primary{background:var(--teal);color:#06251f}
+  .btn-primary:hover{background:#5eead4}
+  .btn-ghost{border:1px solid var(--line2);color:var(--ink);background:transparent}
+  .btn-ghost:hover{border-color:var(--teal);color:var(--teal)}
+  .hero-meta{margin-top:44px;padding-top:22px;border-top:1px solid var(--line);display:flex;flex-wrap:wrap;gap:8px 32px;color:var(--muted);font-size:14px}
+  .hero-meta span b{color:var(--ink)}
+
+  /* ---------- sections ---------- */
+  .section{padding:72px 0}
+  .section + .section{border-top:1px solid var(--line)}
+  .kicker{font-family:var(--mono);font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--teal);margin:0 0 12px}
+  h2{font-size:clamp(30px,4.4vw,44px);line-height:1.1;letter-spacing:-.02em;margin:0 0 12px;font-weight:800}
+  .lede{color:var(--muted);font-size:17px;max-width:680px;margin:0 0 36px}
+  .lede a{color:var(--teal)}
+
+  /* ---------- pipeline ---------- */
+  .flow{display:flex;align-items:stretch;gap:0;margin-top:8px}
+  .node{flex:1;min-width:0;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:20px 16px;position:relative}
+  .node:hover{border-color:var(--teal)}
+  .node .tag{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--teal)}
+  .node h3{margin:10px 0 6px;font-size:17px;line-height:1.25}
+  .node p{margin:0;color:var(--muted);font-size:13.5px;line-height:1.5}
+  .node.hot{background:linear-gradient(160deg,#12312a,var(--card) 70%);border-color:#2a5a4c}
+  .arrow{align-self:center;flex:0 0 28px;text-align:center;color:var(--teal);font-size:18px;font-weight:700}
+  .flow-note{margin-top:18px;color:var(--faint);font-size:14px;font-family:var(--mono)}
+
+  /* ---------- cards ---------- */
+  .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  .grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:26px;display:flex;flex-direction:column;transition:border-color .2s,transform .2s}
+  .card:hover{border-color:var(--line2);transform:translateY(-2px)}
+  .card .when{font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--amber)}
+  .card h3{margin:12px 0 2px;font-size:21px;line-height:1.25}
+  .card .org{color:var(--teal);font-weight:700;font-size:15px}
+  .card .loc{color:var(--faint);font-size:13.5px;margin-top:2px}
+  .card ul{margin:16px 0 0;padding-left:19px;color:#c8d8cd;font-size:14.5px;line-height:1.6}
+  .card ul li{margin-bottom:9px}
+  .card ul li::marker{color:var(--teal)}
+  .card .foot{margin-top:auto;padding-top:18px}
+  .more-link{font-size:14px;color:var(--teal);text-decoration:none;font-weight:700}
+  .more-link:hover{text-decoration:underline}
+
+  /* ---------- projects ---------- */
+  .proj h3{font-family:var(--mono);font-size:18px;margin:0 0 10px;word-break:break-word}
+  .proj h3 a{color:var(--ink);text-decoration:none}
+  .proj h3 a:hover{color:var(--teal)}
+  .proj p{margin:0;color:var(--muted);font-size:14.5px;flex:1}
+  .proj .tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+  .tag{font-family:var(--mono);font-size:12px;padding:5px 10px;border-radius:999px;background:#0d1f18;border:1px solid var(--line2);color:#a9c4b5}
+  .tag.py{color:var(--teal);border-color:#2a5a4c}
+  .proj .foot{display:flex;justify-content:space-between;align-items:center;margin-top:18px;padding-top:16px;border-top:1px solid var(--line)}
+  .gh-link{font-family:var(--mono);font-size:13px;color:var(--teal);text-decoration:none;font-weight:700}
+  .gh-link:hover{text-decoration:underline}
+  .proj-note{margin-top:22px;color:var(--faint);font-size:14px}
+
+  /* ---------- skills ---------- */
+  .core{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:30px}
+  .core .chip{font-size:14px;padding:10px 16px;border-color:#2a5a4c;background:#0f211a;color:var(--ink);font-weight:600}
+  .skill-groups{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  .group{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:22px}
+  .group h3{margin:0 0 14px;font-size:15px;color:var(--teal)}
+  .group .tags{display:flex;flex-wrap:wrap;gap:7px}
+
+  /* ---------- credentials ---------- */
+  .cred{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  .cred .card h3{font-size:18px}
+  .cred-item{padding:14px 0;border-top:1px solid var(--line)}
+  .cred-item:first-of-type{border-top:0}
+  .cred-item strong{display:block;font-size:15.5px}
+  .cred-item span{color:var(--muted);font-size:14px}
+
+  /* ---------- contact ---------- */
+  .contact-card{background:linear-gradient(150deg,#12312a,#0f1a14 65%);border:1px solid #2a5a4c;border-radius:24px;padding:clamp(28px,5vw,52px);text-align:center}
+  .contact-card h2{margin-bottom:10px}
+  .contact-card p{color:var(--muted);max-width:520px;margin:0 auto 28px;font-size:17px}
+  .contact-links{display:flex;flex-wrap:wrap;justify-content:center;gap:12px}
+  .contact-links .btn-ghost{border-color:var(--line2)}
+  footer{padding:36px 0 48px;color:var(--faint);font-size:13.5px}
+  footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
+  footer a{color:var(--muted);text-decoration:none}
+  footer a:hover{color:var(--teal)}
+
+  /* ---------- reveal ---------- */
+  .reveal{opacity:0;transform:translateY(18px);transition:opacity .6s ease,transform .6s ease}
+  .reveal.in{opacity:1;transform:none}
+  @media (prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto}
+    .reveal{opacity:1;transform:none;transition:none}
+  }
+
+  /* ---------- responsive ---------- */
+  @media (max-width:900px){
+    .grid3,.skill-groups{grid-template-columns:repeat(2,1fr)}
+    .flow{flex-direction:column}
+    .arrow{flex:0 0 auto;transform:rotate(90deg);padding:2px 0}
+    .node{padding:18px}
+  }
+  @media (max-width:640px){
+    .hero{padding:64px 0 56px}
+    .section{padding:56px 0}
+    .grid3,.grid2,.skill-groups,.cred{grid-template-columns:1fr}
+    .menu-btn{display:block}
+    .nav-links{position:absolute;top:64px;left:0;right:0;flex-direction:column;align-items:stretch;background:var(--bg2);border-bottom:1px solid var(--line);padding:12px 20px 18px;display:none}
+    .nav-links.open{display:flex}
+    .nav-links a{padding:12px 8px}
+    .nav-links .nav-cta{margin-top:8px;text-align:center}
+  }
+</style>
 </head>
 <body>
-<a class="skip" href="#main">Skip to content</a>
-<div class="toast" id="toast" role="status" aria-live="polite" aria-atomic="true"></div>
-<nav aria-label="Primary navigation">
+<nav>
   <div class="wrap nav-inner">
-    <div class="status"><i aria-hidden="true"></i><span>NEW YORK, NY · OPEN TO OPPORTUNITIES</span></div>
-    <div class="nav-links">
-      <a href="#impact">Impact</a><a href="#journey">Journey</a><a href="#stack">Stack</a><a href="#contact">Contact</a><a href="https://www.linkedin.com/in/chnallandula" target="_blank" rel="noopener">LinkedIn</a>
-      <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch to dark theme" title="Switch theme">
-        <svg id="sunIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"/></svg>
-        <svg id="moonIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true" hidden><path d="M20.5 15.5A8.5 8.5 0 0 1 8.5 3.5a8.5 8.5 0 1 0 12 12Z"/></svg>
-      </button>
-      <a class="mini-cta" href="#contact">Get in touch <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></a>
+    <a class="brand" href="#top">chakri<b>-pixel</b></a>
+    <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="navLinks">Menu</button>
+    <div class="nav-links" id="navLinks">
+      <a href="#how">How I ship</a>
+      <a href="#work">Experience</a>
+      <a href="#projects">Projects</a>
+      <a href="#skills">Skills</a>
+      <a href="#contact" class="nav-cta">Get in touch</a>
     </div>
   </div>
 </nav>
-<main id="main">
+
+<header class="hero" id="top">
   <div class="wrap">
-    <section class="hero" aria-labelledby="hero-title">
-      <div>
-        <div class="availability"><b>PLATFORM ENGINEER</b><span>4+ YEARS · KUBERNETES + GITOPS</span></div>
-        <h1 id="hero-title">I run production Kubernetes platforms <span>teams can rely on.</span></h1>
-        <p class="lead">I’m <strong>Chakri Nallandula</strong>, a DevOps and Site Reliability Engineer with 4+ years running production Kubernetes platforms on Azure (AKS), AWS (EKS), and Rancher. I work with Helm, Argo CD (GitOps), GitLab CI/CD, and Ansible automation, and build full-stack observability with OpenTelemetry, Prometheus, Grafana, Elasticsearch, Dynatrace, and AWS CloudWatch.</p>
-        <div class="hero-actions">
-          <a class="button" href="#impact">See the impact <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></a>
-          <a class="button secondary" href="mailto:chakrinalladula16@gmail.com">Start a conversation</a>
-        </div>
-        <div class="micro-row"><span>Production Kubernetes</span><span>GitOps · Argo CD</span><span>AI-assisted troubleshooting</span></div>
-      </div>
-      <div class="system-window" aria-label="Animated data platform map">
-        <div class="window-bar"><span>PLATFORM / SIGNAL MAP</span><div class="lights" aria-hidden="true"><i></i><i></i><i></i></div></div>
-        <div class="canvas-wrap"><canvas id="network" aria-hidden="true"></canvas>
-          <span class="system-label">DEPLOY / ARGO CD</span><span class="system-label">ORCHESTRATE / KUBERNETES</span><span class="system-label">OBSERVE / PROMETHEUS</span><span class="system-label">RESPOND / PAGERDUTY</span>
-          <div class="core"><div><strong>4+</strong><small>YEARS RUNNING<br>PRODUCTION KUBERNETES</small></div></div>
-        </div>
-      </div>
-    </section>
-    <section aria-label="Platform focus" class="metrics">
-      <div class="metric" aria-label="Production Kubernetes on AKS, EKS, and Rancher"><strong>AKS · EKS · Rancher</strong><span>production Kubernetes platforms</span></div>
-      <div class="metric" aria-label="GitOps releases with Helm and Argo CD"><strong>Helm · Argo CD</strong><span>GitOps releases, consistent and repeatable</span></div>
-      <div class="metric" aria-label="Observability with OpenTelemetry, Prometheus, Grafana, and Dynatrace"><strong>Observability</strong><span>OpenTelemetry, Prometheus, Grafana, Dynatrace</span></div>
-      <div class="metric" aria-label="On-call incident response through PagerDuty and ServiceNow"><strong>On-call</strong><span>PagerDuty and ServiceNow incident response</span></div>
-    </section>
+    <p class="eyebrow"><span class="dot"></span> Platform Engineer · New York, NY</p>
+    <h1>Chakri Nallandula<br /><span class="grad">I run production<br />Kubernetes platforms.</span></h1>
+    <p class="hero-sub"><strong>Platform Engineer | SRE | DevOps.</strong> 4+ years keeping production Kubernetes reliable — so teams can ship with confidence.</p>
+    <div class="chips">
+      <span class="chip"><b>Kubernetes</b> · AKS · EKS · Rancher</span>
+      <span class="chip"><b>GitOps</b> · Helm · Argo CD</span>
+      <span class="chip"><b>Observability</b> · Prometheus · Grafana</span>
+    </div>
+    <div class="cta-row">
+      <a class="btn btn-primary" href="#projects">View projects</a>
+      <a class="btn btn-ghost" href="#contact">Get in touch</a>
+    </div>
+    <div class="hero-meta">
+      <span><b>Now</b> · Platform Engineer, CVS Health</span>
+      <span><b>On call</b> · 24/7 rotations</span>
+      <span><b>Focus</b> · GitOps, observability, AI-assisted troubleshooting</span>
+    </div>
   </div>
-
-  <section id="impact">
+</header>
+<main>
+  <!-- How I ship -->
+  <section class="section" id="how">
     <div class="wrap">
-      <div class="section-head reveal"><span class="section-index">01 / IMPACT</span><h2>Engineering measured in outcomes, not activity.</h2></div>
-      <div class="impact-grid">
-        <article class="case large reveal">
-          <div><span class="case-num">PLATFORM ENGINEERING · CVS HEALTH</span><h3>A Kubernetes platform teams can ship on with confidence.</h3><p>Onboarding applications end to end — GitLab repository setup, CI/CD pipeline creation, Helm chart packaging, and Argo CD deployment — with Ansible automation keeping configuration consistent and routine operational work hands-off.</p><span class="case-tag">HELM · ARGO CD · GITLAB CI/CD</span></div>
-          <div class="flow-art" aria-hidden="true"><div class="lane"><i class="packet"></i></div><div class="lane"><i class="packet"></i></div><div class="lane"><i class="packet"></i></div></div>
+      <p class="kicker reveal">How I ship</p>
+      <h2 class="reveal">From commit to production,<br />and on call when it matters.</h2>
+      <p class="lede reveal">One pipeline, end to end. I onboard applications onto the platform, ship them with GitOps, make them observable, and own the incident when something breaks.</p>
+      <div class="flow reveal">
+        <div class="node"><span class="tag">Code</span><h3>Commit</h3><p>GitLab repository, reviewed and versioned.</p></div>
+        <div class="arrow" aria-hidden="true">→</div>
+        <div class="node"><span class="tag">Build</span><h3>GitLab CI/CD</h3><p>Pipelines that move code from commit to production.</p></div>
+        <div class="arrow" aria-hidden="true">→</div>
+        <div class="node"><span class="tag">Package</span><h3>Helm</h3><p>Charts that package the app for every environment.</p></div>
+        <div class="arrow" aria-hidden="true">→</div>
+        <div class="node"><span class="tag">Deploy</span><h3>Argo CD</h3><p>GitOps releases — consistent, repeatable, auditable.</p></div>
+        <div class="arrow" aria-hidden="true">→</div>
+        <div class="node hot"><span class="tag">Run</span><h3>Kubernetes</h3><p>Production workloads on AKS, EKS, and Rancher.</p></div>
+        <div class="arrow" aria-hidden="true">→</div>
+        <div class="node"><span class="tag">Observe</span><h3>Prometheus / Grafana</h3><p>Metrics, logs, and traces — signal before noise.</p></div>
+        <div class="arrow" aria-hidden="true">→</div>
+        <div class="node"><span class="tag">Respond</span><h3>PagerDuty</h3><p>24/7 on call: respond, find the root cause, fix it for good.</p></div>
+      </div>
+      <p class="flow-note reveal">$ git push → pipeline runs → Argo CD syncs → Kubernetes serves → alerts fire before users notice.</p>
+    </div>
+  </section>
+
+  <!-- Experience -->
+  <section class="section" id="work">
+    <div class="wrap">
+      <p class="kicker reveal">Experience</p>
+      <h2 class="reveal">4+ years across banking,<br />higher education, and healthcare.</h2>
+      <p class="lede reveal">The short version. Full details are on my <a href="https://www.linkedin.com/in/chnallandula">LinkedIn</a>.</p>
+      <div class="grid3">
+        <article class="card reveal">
+          <span class="when">Jul 2025 — Present</span>
+          <h3>Platform Engineer</h3>
+          <span class="org">CVS Health</span>
+          <span class="loc">New York, NY</span>
+          <ul>
+            <li>Manage and troubleshoot production Kubernetes workloads across AKS and Rancher, resolving pod, deployment, job, and cluster-level issues.</li>
+            <li>Deploy and manage Kubernetes resources using Helm charts and Argo CD GitOps workflows.</li>
+            <li>Deployed and maintain open-source Prometheus and Grafana on Kubernetes using Helm — real-time dashboards and alerting.</li>
+          </ul>
         </article>
-        <article class="case reveal"><span class="case-num">OBSERVABILITY · CVS HEALTH</span><h3>Signal before noise.</h3><p>Prometheus and Grafana deployed on Kubernetes with Helm, plus end-to-end observability with OpenTelemetry — metrics, logs, and traces into Dynatrace, Elasticsearch, and Grafana for faster issue detection and diagnosis.</p><div class="case-stat">24/7 <span>ON-CALL COVERAGE</span></div></article>
-        <article class="case reveal"><span class="case-num">DEVOPS / SRE · STANDARD CHARTERED</span><h3>Banking workloads, operated carefully.</h3><p>Containerized applications and batch jobs on Amazon EKS, watched by the OpenTelemetry Collector, CloudWatch, and Prometheus — with IAM least-privilege access controls for a regulated banking environment.</p><div class="case-stat">EKS <span>PRODUCTION WORKLOADS</span></div></article>
+        <article class="card reveal">
+          <span class="when">Mar 2024 — Apr 2025</span>
+          <h3>Linux Administrator</h3>
+          <span class="org">Cleveland State University</span>
+          <span class="loc">Cleveland, OH</span>
+          <ul>
+            <li>Administered and maintained Linux servers — system monitoring, troubleshooting, and routine maintenance.</li>
+            <li>Managed Linux user accounts, groups, permissions, and access controls.</li>
+            <li>Automated server configuration, patching, and maintenance with Ansible playbooks and roles.</li>
+          </ul>
+        </article>
+        <article class="card reveal">
+          <span class="when">Feb 2021 — May 2023</span>
+          <h3>DevOps / SRE Engineer</h3>
+          <span class="org">Standard Chartered</span>
+          <span class="loc">India</span>
+          <ul>
+            <li>Deployed and operated containerized applications and batch jobs on Amazon EKS.</li>
+            <li>Built and maintained CI/CD pipelines using AWS CodeBuild and AWS CodePipeline.</li>
+            <li>Deployed and configured the OpenTelemetry Collector on EKS to gather metrics, logs, and traces.</li>
+          </ul>
+          <div class="foot"><a class="more-link" href="https://www.linkedin.com/in/chnallandula">Full experience on LinkedIn →</a></div>
+        </article>
       </div>
     </div>
   </section>
 
-  <section id="journey" class="journey">
+  <!-- Projects -->
+  <section class="section" id="projects">
     <div class="wrap">
-      <div class="section-head reveal"><span class="section-index">02 / JOURNEY</span><h2>4+ years across banking, higher education, and healthcare.</h2></div>
-      <div class="timeline">
-        <article class="role reveal"><span class="date">JUL 2025 — PRESENT</span><h3>Platform Engineer</h3><div class="company">CVS Health</div><div class="place">New York, NY</div><ul><li>Manage and troubleshoot production Kubernetes workloads across Azure Kubernetes Service (AKS) and Rancher, resolving pod, deployment, job, and cluster-level issues to keep critical applications highly available.</li><li>Deploy and manage Kubernetes resources using Helm charts and Argo CD GitOps workflows, ensuring consistent, repeatable releases across development, staging, and production environments.</li><li>Design and maintain GitLab CI/CD pipelines and create new GitLab projects and repositories, enabling development teams to move code from commit to production faster.</li><li>Onboard new applications onto the Kubernetes platform end to end, from GitLab repository setup and CI/CD pipeline creation to Helm chart packaging and Argo CD deployment.</li><li>Automate infrastructure configuration, patching, and routine operational tasks using Ansible playbooks and roles, reducing manual effort and configuration drift.</li><li>Deploy and maintain open-source Prometheus and Grafana on Kubernetes using Helm, delivering real-time dashboards and alerting for clusters and application health.</li><li>Implement end-to-end observability with OpenTelemetry, integrating metrics, logs, and traces into Dynatrace, Elasticsearch, and Grafana for faster issue detection and diagnosis.</li><li>Participate in 24/7 on-call rotations, responding to production incidents through PagerDuty and ServiceNow, performing root cause analysis, and implementing fixes to prevent recurrence.</li><li>Integrate AI agents (Open Code) with Kubernetes clusters to automate diagnostics, accelerate incident troubleshooting, and support AI workloads running on the platform, and operate AI-assisted engineering workflows to generate, review, and debug Helm charts, Ansible playbooks, and CI/CD pipeline configurations, validating all AI-generated changes before release.</li></ul></article>
-        <article class="role reveal"><span class="date">MAR 2024 — APR 2025</span><h3>Linux Administrator</h3><div class="company">Cleveland State University</div><div class="place">Cleveland, OH</div><ul><li>Administered and maintained Linux servers, performing system monitoring, troubleshooting, routine maintenance, and operational support to ensure system availability and stability.</li><li>Managed Linux user accounts, groups, permissions, and access controls, ensuring secure authentication and compliance with access management policies.</li><li>Performed system administration tasks, including service management using Systemd, process monitoring, log analysis, and troubleshooting system-level issues.</li><li>Developed and maintained Bash shell scripts to automate routine Linux administration tasks, system maintenance, and operational workflows, reducing manual intervention.</li><li>Automated Linux server configuration, patching, and maintenance activities using Ansible playbooks and roles, improving consistency and operational efficiency.</li></ul></article>
-        <article class="role reveal"><span class="date">FEB 2021 — MAY 2023</span><h3>DevOps/SRE Engineer</h3><div class="company">Standard Chartered</div><div class="place">India</div><ul><li>Deployed and operated containerized applications and batch jobs on Amazon EKS, managing deployments, services, and scheduled jobs across multiple environments for banking applications.</li><li>Troubleshot EKS workloads by diagnosing pod failures, resource constraints, and node-level issues, restoring services quickly and minimizing downtime.</li><li>Built and maintained CI/CD pipelines using AWS CodeBuild and AWS CodePipeline to automate build, test, and deployment, replacing manual release steps with repeatable workflows.</li><li>Provisioned and managed core AWS infrastructure, including EC2, S3, and VPC networking, to support application workloads.</li><li>Managed IAM roles, policies, and access controls using least-privilege principles to meet the security and compliance standards of a regulated banking environment.</li><li>Deployed and configured the OpenTelemetry Collector on EKS to gather metrics, logs, and traces from Kubernetes workloads and forward them to monitoring backends.</li><li>Monitored application and infrastructure health with AWS CloudWatch metrics, logs, dashboards, and alarms, enabling early detection of performance issues.</li><li>Implemented Prometheus for Kubernetes metrics collection and alerting, complementing CloudWatch for proactive monitoring of cluster health.</li><li>Performed Linux system administration, including user and access management, permissions, troubleshooting, and routine server maintenance.</li><li>Collaborated with development and QA teams to support releases and resolve production issues, improving deployment reliability.</li></ul></article>
+      <p class="kicker reveal">Projects</p>
+      <h2 class="reveal">Built, not just described.</h2>
+      <p class="lede reveal">Side projects from my GitHub — separate from my day-to-day platform work.</p>
+      <div class="grid2">
+        <article class="card proj reveal">
+          <h3><a href="https://github.com/Chakri-pixel/pipewright">pipewright</a></h3>
+          <p>Agentic natural-language to production Airflow DAG builder: plan, generate, validate, auto-fix, explain.</p>
+          <div class="tags"><span class="tag py">Python</span><span class="tag">Airflow</span><span class="tag">AI agents</span></div>
+          <div class="foot"><a class="gh-link" href="https://github.com/Chakri-pixel/pipewright">View on GitHub →</a></div>
+        </article>
+        <article class="card proj reveal">
+          <h3><a href="https://github.com/Chakri-pixel/realtime-streaming-platform">realtime-streaming-platform</a></h3>
+          <p>Real-time event streaming platform: Kafka-style event generator, PySpark Structured Streaming transforms, live KPI dashboard.</p>
+          <div class="tags"><span class="tag py">Python</span><span class="tag">PySpark</span><span class="tag">Streaming</span></div>
+          <div class="foot"><a class="gh-link" href="https://github.com/Chakri-pixel/realtime-streaming-platform">View on GitHub →</a></div>
+        </article>
+        <article class="card proj reveal">
+          <h3><a href="https://github.com/Chakri-pixel/lakehouse-v2">lakehouse-v2</a></h3>
+          <p>Modern data lakehouse: dbt medallion pipeline on DuckDB with data quality gates, quarantine pattern, Airflow orchestration.</p>
+          <div class="tags"><span class="tag py">Python</span><span class="tag">dbt</span><span class="tag">DuckDB</span></div>
+          <div class="foot"><a class="gh-link" href="https://github.com/Chakri-pixel/lakehouse-v2">View on GitHub →</a></div>
+        </article>
+        <article class="card proj reveal">
+          <h3><a href="https://github.com/Chakri-pixel/ecommerce-lakehouse">ecommerce-lakehouse</a></h3>
+          <p>Batch CDC + streaming clickstream lakehouse. Airflow, dbt, Kafka, Parquet/S3. Watermarked incremental ingestion, SCD2 modelling.</p>
+          <div class="tags"><span class="tag py">Python</span><span class="tag">Airflow</span><span class="tag">Kafka</span></div>
+          <div class="foot"><a class="gh-link" href="https://github.com/Chakri-pixel/ecommerce-lakehouse">View on GitHub →</a></div>
+        </article>
+        <article class="card proj reveal">
+          <h3><a href="https://github.com/Chakri-pixel/ai-data-analyst-agent">ai-data-analyst-agent</a></h3>
+          <p>Natural-language to SQL AI agent with guardrail validation, read-only execution, retry-on-error and audit logging. Streamlit UI + CLI.</p>
+          <div class="tags"><span class="tag py">Python</span><span class="tag">AI agents</span><span class="tag">Streamlit</span></div>
+          <div class="foot"><a class="gh-link" href="https://github.com/Chakri-pixel/ai-data-analyst-agent">View on GitHub →</a></div>
+        </article>
+        <article class="card proj reveal">
+          <h3><a href="https://github.com/Chakri-pixel">More on GitHub</a></h3>
+          <p>Everything else I build and tinker with lives on my GitHub profile — automation, pipelines, and experiments.</p>
+          <div class="tags"><span class="tag py">Python</span><span class="tag">Bash</span><span class="tag">Kubernetes</span></div>
+          <div class="foot"><a class="gh-link" href="https://github.com/Chakri-pixel">github.com/Chakri-pixel →</a></div>
+        </article>
+      </div>
+      <p class="proj-note reveal">Project descriptions are the repos’ own descriptions, word for word.</p>
+    </div>
+  </section>
+
+  <!-- Skills -->
+  <section class="section" id="skills">
+    <div class="wrap">
+      <p class="kicker reveal">Stack</p>
+      <h2 class="reveal">The tools I reach for.</h2>
+      <p class="lede reveal">Core stack first — then the full picture, grouped the way I actually use it.</p>
+      <div class="core reveal">
+        <span class="chip">Kubernetes</span><span class="chip">Helm</span><span class="chip">Argo CD</span><span class="chip">GitLab CI/CD</span><span class="chip">Ansible</span><span class="chip">OpenTelemetry</span><span class="chip">Prometheus</span><span class="chip">Grafana</span><span class="chip">AWS</span><span class="chip">Azure</span><span class="chip">Linux Administration</span><span class="chip">Bash</span>
+      </div>
+      <div class="skill-groups">
+        <div class="group reveal"><h3>Containers &amp; Orchestration</h3><div class="tags"><span class="tag">Kubernetes</span><span class="tag">Azure Kubernetes Service (AKS)</span><span class="tag">Amazon EKS</span><span class="tag">Rancher</span><span class="tag">Helm</span><span class="tag">Docker</span><span class="tag">kubectl</span><span class="tag">Jobs / CronJobs</span><span class="tag">RBAC</span><span class="tag">Ingress</span><span class="tag">ConfigMaps</span><span class="tag">Secrets</span></div></div>
+        <div class="group reveal"><h3>CI/CD &amp; GitOps</h3><div class="tags"><span class="tag">Argo CD</span><span class="tag">GitLab CI/CD</span><span class="tag">AWS CodeBuild</span><span class="tag">AWS CodePipeline</span><span class="tag">Jenkins</span><span class="tag">GitHub</span><span class="tag">Azure DevOps</span><span class="tag">Git</span><span class="tag">GitOps</span><span class="tag">Deployment Automation</span><span class="tag">Release Management</span></div></div>
+        <div class="group reveal"><h3>Configuration &amp; IaC</h3><div class="tags"><span class="tag">Ansible</span><span class="tag">Terraform</span><span class="tag">Infrastructure as Code</span><span class="tag">Bash</span><span class="tag">Python</span></div></div>
+        <div class="group reveal"><h3>Observability &amp; Monitoring</h3><div class="tags"><span class="tag">OpenTelemetry</span><span class="tag">Prometheus</span><span class="tag">Grafana</span><span class="tag">Dynatrace</span><span class="tag">Elasticsearch (ELK)</span><span class="tag">AWS CloudWatch</span><span class="tag">Alertmanager</span><span class="tag">Logging</span><span class="tag">Metrics</span><span class="tag">Distributed Tracing</span><span class="tag">Dashboards</span><span class="tag">SLIs / SLOs</span></div></div>
+        <div class="group reveal"><h3>SRE &amp; Incident Management</h3><div class="tags"><span class="tag">On-Call Rotations</span><span class="tag">PagerDuty</span><span class="tag">ServiceNow</span><span class="tag">Incident Response</span><span class="tag">Root Cause Analysis (RCA)</span><span class="tag">Postmortems</span><span class="tag">Production Support</span><span class="tag">Troubleshooting</span><span class="tag">High Availability</span></div></div>
+        <div class="group reveal"><h3>Cloud Platforms</h3><div class="tags"><span class="tag">Microsoft Azure</span><span class="tag">AWS</span><span class="tag">GCP (BigQuery)</span><span class="tag">EC2</span><span class="tag">S3</span><span class="tag">IAM</span><span class="tag">Lambda</span><span class="tag">VPC</span><span class="tag">ADLS</span></div></div>
+        <div class="group reveal"><h3>Operating Systems</h3><div class="tags"><span class="tag">Linux Administration</span><span class="tag">Shell Scripting</span><span class="tag">User &amp; Access Management</span><span class="tag">Systemd</span><span class="tag">Networking Basics</span></div></div>
+        <div class="group reveal"><h3>AI &amp; Automation</h3><div class="tags"><span class="tag">AI Agents</span><span class="tag">AIOps</span><span class="tag">LLM Integration with Kubernetes</span><span class="tag">Agentic Workflows</span><span class="tag">Prompt Engineering</span><span class="tag">RAG</span><span class="tag">AI-Assisted Troubleshooting</span></div></div>
+        <div class="group reveal"><h3>Languages &amp; Data</h3><div class="tags"><span class="tag">Python</span><span class="tag">Bash</span><span class="tag">SQL</span><span class="tag">Go</span><span class="tag">PySpark</span><span class="tag">PostgreSQL</span><span class="tag">MySQL</span><span class="tag">Snowflake</span><span class="tag">Apache Airflow</span></div></div>
       </div>
     </div>
   </section>
 
-  <section id="stack">
+  <!-- Credentials -->
+  <section class="section" id="credentials">
     <div class="wrap">
-      <div class="stack-layout">
-        <div class="stack-intro reveal"><span class="section-index">03 / SYSTEMS</span><h2>One stack. Nine lenses.</h2><p>Select a category to inspect the tools and practices I use across Kubernetes, GitOps, observability, and incident response.</p>
-          <div class="stack-tabs" role="tablist" aria-label="Technical skill categories">
-            <button class="stack-tab active" role="tab" aria-selected="true" aria-controls="panel-orchestration" id="tab-orchestration" data-tab="orchestration">Containers & Orchestration <b>01</b></button>
-            <button class="stack-tab" role="tab" aria-selected="false" aria-controls="panel-cicd" id="tab-cicd" data-tab="cicd">CI/CD & GitOps <b>02</b></button>
-            <button class="stack-tab" role="tab" aria-selected="false" aria-controls="panel-iac" id="tab-iac" data-tab="iac">Config Management & IaC <b>03</b></button>
-            <button class="stack-tab" role="tab" aria-selected="false" aria-controls="panel-observability" id="tab-observability" data-tab="observability">Observability & Monitoring <b>04</b></button>
-            <button class="stack-tab" role="tab" aria-selected="false" aria-controls="panel-sre" id="tab-sre" data-tab="sre">SRE & Incident Management <b>05</b></button>
-            <button class="stack-tab" role="tab" aria-selected="false" aria-controls="panel-cloud" id="tab-cloud" data-tab="cloud">Cloud Platforms <b>06</b></button>
-            <button class="stack-tab" role="tab" aria-selected="false" aria-controls="panel-os" id="tab-os" data-tab="os">Operating Systems <b>07</b></button>
-            <button class="stack-tab" role="tab" aria-selected="false" aria-controls="panel-ai" id="tab-ai" data-tab="ai">AI & Automation <b>08</b></button>
-            <button class="stack-tab" role="tab" aria-selected="false" aria-controls="panel-languages" id="tab-languages" data-tab="languages">Languages & Data <b>09</b></button>
-          </div>
+      <p class="kicker reveal">Credentials</p>
+      <h2 class="reveal">Grounded in systems. Always learning.</h2>
+      <div class="cred">
+        <div class="card reveal">
+          <h3>Education</h3>
+          <div class="cred-item"><strong>M.S., Management Information Systems</strong><span>Cleveland State University · Dec 2025 · GPA 3.56/4.0</span></div>
+          <div class="cred-item"><strong>B.Tech, Computer Engineering</strong><span>GITAM (Deemed to be University) · 2023</span></div>
         </div>
-        <div class="skills-stage reveal">
-          <div class="skill-panel active" id="panel-orchestration" role="tabpanel" aria-labelledby="tab-orchestration"><h3>Containers & Orchestration</h3><p>The orchestration layer: clusters, workloads, and the primitives that keep them running.</p><div class="skill-cloud"><span class="skill primary">Kubernetes</span><span class="skill primary">Azure Kubernetes Service (AKS)</span><span class="skill primary">Amazon EKS</span><span class="skill">Rancher</span><span class="skill">Helm</span><span class="skill">Docker</span><span class="skill">kubectl</span><span class="skill">Kubernetes Jobs/CronJobs</span><span class="skill">RBAC</span><span class="skill">Ingress</span><span class="skill">ConfigMaps</span><span class="skill">Secrets</span></div></div>
-          <div class="skill-panel" id="panel-cicd" role="tabpanel" aria-labelledby="tab-cicd"><h3>CI/CD & GitOps</h3><p>Pipelines and GitOps workflows that move code from commit to production, repeatably.</p><div class="skill-cloud"><span class="skill primary">Argo CD</span><span class="skill primary">GitLab CI/CD</span><span class="skill">AWS CodeBuild</span><span class="skill">AWS CodePipeline</span><span class="skill">Jenkins</span><span class="skill">GitHub</span><span class="skill">Azure DevOps</span><span class="skill">Git</span><span class="skill">GitOps</span><span class="skill">Deployment Automation</span><span class="skill">Release Management</span></div></div>
-          <div class="skill-panel" id="panel-iac" role="tabpanel" aria-labelledby="tab-iac"><h3>Configuration Management & IaC</h3><p>Configuration as code: automated setup, patching, and routine operational tasks.</p><div class="skill-cloud"><span class="skill primary">Ansible (playbooks, roles, inventories)</span><span class="skill primary">Terraform</span><span class="skill">Infrastructure as Code</span><span class="skill">Bash</span><span class="skill">Python</span></div></div>
-          <div class="skill-panel" id="panel-observability" role="tabpanel" aria-labelledby="tab-observability"><h3>Observability & Monitoring</h3><p>Metrics, logs, and traces, wired into dashboards and alerts for faster detection and diagnosis.</p><div class="skill-cloud"><span class="skill primary">OpenTelemetry (Collector, instrumentation)</span><span class="skill primary">Prometheus</span><span class="skill">Grafana</span><span class="skill">Dynatrace</span><span class="skill">Elasticsearch (ELK)</span><span class="skill">AWS CloudWatch</span><span class="skill">Alertmanager</span><span class="skill">Logging</span><span class="skill">Metrics</span><span class="skill">Distributed Tracing</span><span class="skill">Dashboards</span><span class="skill">SLIs/SLOs</span></div></div>
-          <div class="skill-panel" id="panel-sre" role="tabpanel" aria-labelledby="tab-sre"><h3>SRE & Incident Management</h3><p>Production ownership: on-call response, root cause analysis, and fixes that prevent recurrence.</p><div class="skill-cloud"><span class="skill primary">On-Call Rotations</span><span class="skill primary">PagerDuty</span><span class="skill">ServiceNow</span><span class="skill">Incident Response</span><span class="skill">Root Cause Analysis (RCA)</span><span class="skill">Postmortems</span><span class="skill">Production Support</span><span class="skill">Troubleshooting</span><span class="skill">High Availability</span></div></div>
-          <div class="skill-panel" id="panel-cloud" role="tabpanel" aria-labelledby="tab-cloud"><h3>Cloud Platforms</h3><p>The clouds the platforms run on, and the services around them.</p><div class="skill-cloud"><span class="skill primary">Microsoft Azure (AKS, ADLS, Azure DevOps)</span><span class="skill primary">AWS (EKS, EC2, S3, IAM, Lambda, CloudWatch, CodeBuild, CodePipeline, VPC)</span><span class="skill">GCP (BigQuery)</span></div></div>
-          <div class="skill-panel" id="panel-os" role="tabpanel" aria-labelledby="tab-os"><h3>Operating Systems</h3><p>Linux fundamentals: administration, access control, services, and scripting.</p><div class="skill-cloud"><span class="skill primary">Linux Administration</span><span class="skill">Shell Scripting</span><span class="skill">User & Access Management</span><span class="skill">Systemd</span><span class="skill">Networking Basics</span></div></div>
-          <div class="skill-panel" id="panel-ai" role="tabpanel" aria-labelledby="tab-ai"><h3>AI & Automation</h3><p>AI agents and assisted workflows, validated before release, to speed up troubleshooting.</p><div class="skill-cloud"><span class="skill primary">AI Agents</span><span class="skill">AIOps</span><span class="skill">LLM Integration with Kubernetes</span><span class="skill">Agentic Workflows</span><span class="skill">Prompt Engineering</span><span class="skill">RAG</span><span class="skill">AI-Assisted Troubleshooting</span></div></div>
-          <div class="skill-panel" id="panel-languages" role="tabpanel" aria-labelledby="tab-languages"><h3>Languages & Data</h3><p>Languages and data stores used across platform, automation, and troubleshooting work.</p><div class="skill-cloud"><span class="skill primary">Python</span><span class="skill">Bash</span><span class="skill">SQL</span><span class="skill">Go</span><span class="skill">PySpark</span><span class="skill">PostgreSQL</span><span class="skill">MySQL</span><span class="skill">Snowflake</span><span class="skill">Apache Airflow</span></div></div>
+        <div class="card reveal">
+          <h3>Certifications</h3>
+          <div class="cred-item"><strong>AWS Certified Solution Architect</strong><span>Amazon Web Services</span></div>
+          <div class="cred-item"><strong>Microsoft Certified: Azure Developer Associate</strong><span>Microsoft</span></div>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="process">
+  <!-- Contact -->
+  <section class="section" id="contact">
     <div class="wrap">
-      <div class="section-head reveal"><span class="section-index">04 / METHOD</span><h2>From commit to production, and on call when it matters.</h2></div>
-      <div class="process-grid reveal">
-        <article class="process-step"><div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg></div><h3>Onboard the application</h3><p>Bring a service onto the platform end to end: GitLab repository, CI/CD pipeline, Helm chart, and Argo CD deployment.</p></article>
-        <article class="process-step"><div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 7h6v6H4zM14 11h6v6h-6zM10 10l4 2M7 13v4h7"/></svg></div><h3>Ship with GitOps</h3><p>Helm charts and Argo CD workflows for consistent, repeatable releases across development, staging, and production.</p></article>
-        <article class="process-step"><div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="m5 12 4 4L19 6"/><path d="M4 21h16"/></svg></div><h3>Make it observable</h3><p>OpenTelemetry, Prometheus, Grafana, Dynatrace, and Elasticsearch, so issues surface early and diagnosis is fast.</p></article>
-        <article class="process-step"><div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 18V9m5 9V5m6 13v-7m5 7V3"/></svg></div><h3>Own the incident</h3><p>24/7 on-call through PagerDuty and ServiceNow: respond, find the root cause, and fix it so it does not recur.</p></article>
-      </div>
-    </div>
-  </section>
-
-  <section class="credentials" id="credentials">
-    <div class="wrap">
-      <div class="section-head reveal"><span class="section-index">05 / CREDENTIALS</span><h2>Grounded in systems. Always learning.</h2></div>
-      <div class="credentials-grid">
-        <article class="education reveal"><h3>Education</h3><div class="edu-item"><strong>Master of Science · Management Information Systems</strong><span>Cleveland State University · Dec 2025 · GPA 3.56/4.0</span></div><div class="edu-item"><strong>Bachelor of Technology · Computer Engineering</strong><span>GITAM (Deemed to be University) · 2023</span></div></article>
-        <article class="certs reveal"><h3>Certifications</h3><div class="cert"><strong>AWS Certified Solution Architect</strong></div><div class="cert"><strong>Microsoft Certified: Azure Developer Associate</strong></div></article>
-      </div>
-    </div>
-  </section>
-
-  <section class="contact" id="contact">
-    <div class="wrap">
-      <div class="contact-shell reveal">
-        <span class="section-index">NEXT / CONNECT</span>
-        <h2>Have a platform that needs steady hands? Let’s talk.</h2>
+      <div class="contact-card reveal">
+        <p class="kicker">Next</p>
+        <h2>Have a platform that needs steady hands?</h2>
         <p>Based in New York, NY — let’s talk about platform engineering, SRE, and DevOps.</p>
-        <div class="contact-actions"><a class="button" href="mailto:chakrinalladula16@gmail.com">chakrinalladula16@gmail.com</a><button class="button secondary" id="copyEmail" type="button">Copy email</button><a class="button secondary" href="tel:+15135125646">513-512-5646</a><a class="button secondary" href="https://www.linkedin.com/in/chnallandula" target="_blank" rel="noopener">LinkedIn profile</a></div>
+        <div class="contact-links">
+          <a class="btn btn-primary" href="mailto:chakrinalladula16@gmail.com">Email me</a>
+          <button class="btn btn-ghost" id="copyEmail" type="button">Copy email</button>
+          <a class="btn btn-ghost" href="https://www.linkedin.com/in/chnallandula">LinkedIn</a>
+          <a class="btn btn-ghost" href="https://github.com/Chakri-pixel">GitHub</a>
+        </div>
+        <p style="margin:24px 0 0;font-size:14px"><span id="copyMsg">chakrinalladula16@gmail.com · 513-512-5646</span></p>
       </div>
     </div>
   </section>
 </main>
-<footer class="wrap"><div><strong>Chakri Nallandula</strong><span>Platform Engineer · New York, NY · <a href="https://www.linkedin.com/in/chnallandula" target="_blank" rel="noopener">LinkedIn</a></span></div><div class="mono">KUBERNETES · HELM · ARGO CD · ANSIBLE · OBSERVABILITY · AI</div></footer>
+
+<footer>
+  <div class="wrap">
+    <span>Chakri Nallandula — Platform Engineer · New York, NY</span>
+    <span><a href="https://www.linkedin.com/in/chnallandula">LinkedIn</a> · <a href="https://github.com/Chakri-pixel">GitHub</a> · <a href="mailto:chakrinalladula16@gmail.com">Email</a></span>
+  </div>
+</footer>
+
 <script>
 (function(){
+  // Mobile nav
+  var btn=document.getElementById('menuBtn'), links=document.getElementById('navLinks');
+  if(btn&&links){
+    btn.addEventListener('click',function(){
+      var open=links.classList.toggle('open');
+      btn.setAttribute('aria-expanded',open?'true':'false');
+    });
+    links.addEventListener('click',function(e){
+      if(e.target.tagName==='A'){links.classList.remove('open');btn.setAttribute('aria-expanded','false');}
+    });
+  }
+  // Copy email
+  var copy=document.getElementById('copyEmail'), msg=document.getElementById('copyMsg');
+  if(copy){
+    copy.addEventListener('click',function(){
+      var email='chakrinalladula16@gmail.com';
+      function done(ok){ if(msg){ msg.textContent = ok ? 'Email copied ✓' : 'Copy failed — select the email instead'; } }
+      if(navigator.clipboard && navigator.clipboard.writeText){
+        navigator.clipboard.writeText(email).then(function(){done(true)},function(){done(false)});
+      } else {
+        try{
+          var t=document.createElement('textarea'); t.value=email; document.body.appendChild(t); t.select();
+          var ok=document.execCommand('copy'); document.body.removeChild(t); done(ok);
+        }catch(e){ done(false); }
+      }
+    });
+  }
+  // Scroll reveal
   var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if(!reduce)document.documentElement.classList.add('js-ready');
-
-  var themeToggle=document.getElementById('themeToggle'),sunIcon=document.getElementById('sunIcon'),moonIcon=document.getElementById('moonIcon'),themeMeta=document.querySelector('meta[name="theme-color"]');
-  function activeTheme(){var chosen=document.documentElement.getAttribute('data-theme');return chosen||((window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light')}
-  function syncThemeControl(){var dark=activeTheme()==='dark';themeToggle.setAttribute('aria-label',dark?'Switch to light theme':'Switch to dark theme');sunIcon.hidden=dark;moonIcon.hidden=!dark;themeMeta.setAttribute('content',dark?'#071013':'#f4f7f6')}
-  themeToggle.addEventListener('click',function(){document.documentElement.setAttribute('data-theme',activeTheme()==='dark'?'light':'dark');syncThemeControl()});
-  syncThemeControl();
-
-  var nav=document.querySelector('nav');
-  window.addEventListener('scroll',function(){nav.classList.toggle('scrolled',window.scrollY>12)},{passive:true});
-
-  var reveals=document.querySelectorAll('.reveal');
-  if('IntersectionObserver' in window && !reduce){
-    var ro=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('visible');ro.unobserve(e.target)}})},{threshold:.12});
-    reveals.forEach(function(el){ro.observe(el)});
-  }else{reveals.forEach(function(el){el.classList.add('visible')})}
-
-  var tabs=document.querySelectorAll('.stack-tab');
-  tabs.forEach(function(tab){tab.addEventListener('click',function(){tabs.forEach(function(t){t.classList.remove('active');t.setAttribute('aria-selected','false')});document.querySelectorAll('.skill-panel').forEach(function(p){p.classList.remove('active')});tab.classList.add('active');tab.setAttribute('aria-selected','true');document.getElementById('panel-'+tab.dataset.tab).classList.add('active')})});
-
-  var copy=document.getElementById('copyEmail'),toast=document.getElementById('toast'),toastTimer;
-  copy.addEventListener('click',function(event){event.preventDefault();var x=window.scrollX,y=window.scrollY;var notify=function(message){window.scrollTo(x,y);toast.textContent=message;toast.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(function(){toast.classList.remove('show');setTimeout(function(){if(!toast.classList.contains('show'))toast.textContent=''},220)},2200)};if(navigator.clipboard&&window.isSecureContext){navigator.clipboard.writeText('chakrinalladula16@gmail.com').then(function(){notify('Email copied')}).catch(function(){fallback(notify,x,y)})}else fallback(notify,x,y)});
-  function fallback(notify,x,y){var t=document.createElement('textarea'),copied=false;t.value='chakrinalladula16@gmail.com';t.setAttribute('readonly','');t.style.position='fixed';t.style.left='0';t.style.top='0';t.style.width='1px';t.style.height='1px';t.style.opacity='0';document.body.appendChild(t);t.focus({preventScroll:true});t.select();try{copied=document.execCommand('copy')}catch(e){copied=false}document.body.removeChild(t);window.scrollTo(x,y);notify(copied?'Email copied':'Copy failed — select the email instead')}
-
-  var canvas=document.getElementById('network'),ctx=canvas.getContext('2d'),holder=canvas.parentElement,pts=[],raf;
-  function color(name){return getComputedStyle(document.documentElement).getPropertyValue(name).trim()}
-  function size(){var r=holder.getBoundingClientRect(),d=Math.min(devicePixelRatio||1,2);canvas.width=r.width*d;canvas.height=r.height*d;canvas.style.width=r.width+'px';canvas.style.height=r.height+'px';ctx.setTransform(d,0,0,d,0,0);pts=[];for(var i=0;i<30;i++)pts.push({x:Math.random()*r.width,y:Math.random()*r.height,vx:(Math.random()-.5)*.22,vy:(Math.random()-.5)*.22,r:Math.random()*2+1})}
-  function draw(){var w=canvas.clientWidth,h=canvas.clientHeight;ctx.clearRect(0,0,w,h);var line=color('--line'),aqua=color('--aqua');for(var i=0;i<pts.length;i++){var p=pts[i];p.x+=p.vx;p.y+=p.vy;if(p.x<0||p.x>w)p.vx*=-1;if(p.y<0||p.y>h)p.vy*=-1;ctx.beginPath();ctx.fillStyle=aqua;ctx.globalAlpha=.55;ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fill();for(var j=i+1;j<pts.length;j++){var q=pts[j],dx=p.x-q.x,dy=p.y-q.y,dist=Math.sqrt(dx*dx+dy*dy);if(dist<105){ctx.beginPath();ctx.strokeStyle=line;ctx.globalAlpha=(1-dist/105)*.65;ctx.moveTo(p.x,p.y);ctx.lineTo(q.x,q.y);ctx.stroke()}}}ctx.globalAlpha=1;if(!reduce)raf=requestAnimationFrame(draw)}
-  size();draw();window.addEventListener('resize',function(){cancelAnimationFrame(raf);size();draw()},{passive:true});
+  var els=document.querySelectorAll('.reveal');
+  if(reduce || !('IntersectionObserver' in window)){
+    els.forEach(function(el){el.classList.add('in');});
+  } else {
+    var io=new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target); }
+      });
+    },{threshold:.12});
+    els.forEach(function(el){io.observe(el);});
+  }
 })();
 </script>
 </body>
